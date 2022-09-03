@@ -15,7 +15,7 @@ def answers_to_questions(update, context):
     text_message = update.message.text
     povtor_text = f'Такой пользователь написал еще раз {update.effective_user}'
     context.bot.send_message(chat_id='5563946468', text=povtor_text, )
-    if text_message in ['нет', 'Нет', 'хватит', 'ты уже надеол', 'нету', 'не надо', 'пока', 'Пока']:
+    if str(text_message).lower() in ['нет', 'хватит', 'ты уже надеол', 'нету', 'не надо', 'пока','не']:
         text_from_dialogue_flow = detect_intent_texts(
             project_id,
             chat_id,
