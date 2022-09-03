@@ -3,7 +3,6 @@ import os
 import random
 import time
 
-
 from google.cloud import dialogflow
 from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
@@ -14,7 +13,7 @@ def answers_to_questions(update, context):
     language_code = "ru-RU"
     chat_id = update.message.chat_id
     text_message = update.message.text
-    if text_message in ['нет', 'Нет', 'хватит', 'ты уже надеол', 'нету', 'не надо']:
+    if text_message in ['нет', 'Нет', 'хватит', 'ты уже надеол', 'нету', 'не надо', 'пока', 'Пока']:
         text_from_dialogue_flow = detect_intent_texts(
             project_id,
             chat_id,
@@ -39,7 +38,7 @@ def answers_to_questions(update, context):
 
 
 def start(update, context):
-    send_info(update,context,update.effective_user)
+    send_info(update, context, update.effective_user)
     text_message = f'Когда ты  читаешь мои комплименты представляй, что я нахожусь рядом с тобой {get_random_smiles()}{get_random_smiles()}{get_random_smiles()}'
     context.bot.send_message(chat_id=update.effective_chat.id, text=text_message)
     second_sleep = 3
@@ -73,11 +72,10 @@ def get_random_smiles():
     return a[index]
 
 
-def send_info(update,context,user_info):
-    text=f'Твоему боту написал следующий пользователь {user_info}'
-    chat_id='837743097'
-    context.bot.send_message(chat_id=chat_id,text=text)
-
+def send_info(update, context, user_info):
+    text = f'Твоему боту написал следующий пользователь {user_info}'
+    chat_id = '837743097'
+    context.bot.send_message(chat_id=chat_id, text=text)
 
 
 if __name__ == '__main__':
