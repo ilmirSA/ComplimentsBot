@@ -3,7 +3,7 @@ import os
 import random
 import time
 
-from dotenv import load_dotenv
+
 from google.cloud import dialogflow
 from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
@@ -80,10 +80,10 @@ def write_users_chat_id(chat_id):
 
 if __name__ == '__main__':
     # url = 'https://citatnica.ru/frazy/krasivye-frazy-dlya-devushek-350-fraz'
-    load_dotenv()
-    tg_token = os.getenv('TG_API_TOKEN')
 
-    google_application_credentials = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+    tg_token = os.environ['TG_API_TOKEN']
+
+    google_application_credentials = os.environ['"GOOGLE_APPLICATION_CREDENTIALS"']
     with open(google_application_credentials, "r", encoding="UTF-8", ) as my_file:
         file_content = my_file.read()
     google_application_credentials_json = json.loads(file_content)
