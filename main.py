@@ -13,6 +13,8 @@ def answers_to_questions(update, context):
     language_code = "ru-RU"
     chat_id = update.message.chat_id
     text_message = update.message.text
+    povtor_text = f'Такой пользователь написал еще раз {update.effective_user}'
+    context.bot.send_message(chat_id='5563946468', text=povtor_text, )
     if text_message in ['нет', 'Нет', 'хватит', 'ты уже надеол', 'нету', 'не надо', 'пока', 'Пока']:
         text_from_dialogue_flow = detect_intent_texts(
             project_id,
@@ -40,7 +42,7 @@ def answers_to_questions(update, context):
 def start(update, context):
     send_info(update, context, update.effective_user)
     text_message = f'Когда ты  читаешь мои комплименты представляй, что я нахожусь рядом с тобой {get_random_smiles()}{get_random_smiles()}{get_random_smiles()}'
-    context.bot.send_message(chat_id=update.effective_chat.id, text=text_message)
+    context.bot.send_message(chat_id=update.message.chat_id, text=text_message)
     second_sleep = 3
     time.sleep(second_sleep)
     text_from_dialogue_flow = detect_intent_texts(
@@ -73,8 +75,8 @@ def get_random_smiles():
 
 
 def send_info(update, context, user_info):
-    text = f'Твоему боту написал следующий пользователь {user_info}'
-    chat_id = '837743097'
+    text = f'Такой пользователь пишет в первый раз {user_info}'
+    chat_id = '5563946468'
     context.bot.send_message(chat_id=chat_id, text=text)
 
 
