@@ -13,18 +13,17 @@ def answers_to_questions(update, context):
     language_code = "ru-RU"
     chat_id = update.message.chat_id
     text_message = update.message.text
-    povtor_text = f'Такой пользователь написал еще раз {update.effective_user}'
-    context.bot.send_message(chat_id='5563946468', text=povtor_text, )
-    #context.bot.send_audio(chat_id='5563946468',audio=open('dama.mp3', 'rb'))
-    if str(text_message).lower() in ['нет', 'хватит', 'ты уже надеол', 'нету', 'не надо', 'пока','не']:
+    repeated_text = f'Такой пользователь написал еще раз {update.effective_user}'
+    context.bot.send_message(chat_id='5563946468', text=repeated_text, )
+    if str(text_message).lower() in ['нет', 'хватит', 'ты уже надеол', 'нету', 'не надо', 'пока', 'не']:
         text_from_dialogue_flow = detect_intent_texts(
             project_id,
             chat_id,
             text_message,
             language_code
         )
-        poka = f'{text_from_dialogue_flow}{get_random_smiles()}{get_random_smiles()}{get_random_smiles()}'
-        context.bot.send_message(chat_id=chat_id, text=poka, )
+        farewell_text = f'{text_from_dialogue_flow}{get_random_smiles()}{get_random_smiles()}{get_random_smiles()}'
+        context.bot.send_message(chat_id=chat_id, text=farewell_text, )
     else:
         text_from_dialogue_flow = detect_intent_texts(
             project_id,
@@ -41,21 +40,33 @@ def answers_to_questions(update, context):
 
 
 def start(update, context):
-    send_info(update, context, update.effective_user)
-    text_message = f'Когда ты  читаешь мои комплименты представляй, что я нахожусь рядом с тобой {get_random_smiles()}{get_random_smiles()}{get_random_smiles()}'
-    context.bot.send_message(chat_id=update.message.chat_id, text=text_message)
-    second_sleep = 3
-    time.sleep(second_sleep)
-    text_from_dialogue_flow = detect_intent_texts(
-        project_id,
-        update.message.chat_id,
-        text_message,
-        'ru-RU',
-    )
-    previe_text = f'{text_from_dialogue_flow}{get_random_smiles()}{get_random_smiles()}{get_random_smiles()}{get_random_smiles()}'
-    context.bot.send_message(chat_id=update.message.chat_id, text=previe_text, )
-    time.sleep(second_sleep)
-    context.bot.send_message(chat_id=update.message.chat_id, text='Еще комплиментов зай?☺', )
+    user_name = update.effective_user['username']
+    if user_name == 'ellkkaaa':
+        context.bot.send_message(chat_id=update.message.chat_id,
+                                 text='Ооо привет подожди я кое-что должен тебе передать,уже загружаю!!! 😉 ')
+        context.bot.send_audio(chat_id=update.message.chat_id, audio=open('от Ильмира.mp3', 'rb'))
+        time.sleep(3)
+        context.bot.send_message(chat_id=update.message.chat_id,
+                                 text='Пока ты слушаешь , Ильмир передает тебе пламенный привет !!! 😜')
+        time.sleep(5)
+        context.bot.send_message(chat_id=update.message.chat_id,
+                                 text='Хочешь комплимент ? 😊')
+    else:
+        send_info(update, context, update.effective_user)
+        welcome_text = f'Когда ты  читаешь мои комплименты представляй, что я нахожусь рядом с тобой {get_random_smiles()}{get_random_smiles()}{get_random_smiles()}'
+        context.bot.send_message(chat_id=update.message.chat_id, text=welcome_text)
+        second_sleep = 3
+        time.sleep(second_sleep)
+        text_from_dialogue_flow = detect_intent_texts(
+            project_id,
+            update.message.chat_id,
+            welcome_text,
+            'ru-RU',
+        )
+        text_message = f'{text_from_dialogue_flow}{get_random_smiles()}{get_random_smiles()}{get_random_smiles()}{get_random_smiles()}'
+        context.bot.send_message(chat_id=update.message.chat_id, text=text_message, )
+        time.sleep(second_sleep)
+        context.bot.send_message(chat_id=update.message.chat_id, text='Еще комплиментов зай?☺', )
 
 
 def detect_intent_texts(project_id, session_id, text, language_code):
@@ -83,10 +94,10 @@ def send_info(update, context, user_info):
 
 if __name__ == '__main__':
     # url = 'https://citatnica.ru/frazy/krasivye-frazy-dlya-devushek-350-fraz'
-
+    google_application_credentials = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
     tg_token = os.environ['TG_API_TOKEN']
 
-    google_application_credentials = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
+    google_application_credentials = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
     with open(google_application_credentials, "r", encoding="UTF-8", ) as my_file:
         file_content = my_file.read()
     google_application_credentials_json = json.loads(file_content)
