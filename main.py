@@ -97,7 +97,6 @@ if __name__ == '__main__':
     google_application_credentials = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
     tg_token = os.environ['TG_API_TOKEN']
 
-    google_application_credentials = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
     with open(google_application_credentials, "r", encoding="UTF-8", ) as my_file:
         file_content = my_file.read()
     google_application_credentials_json = json.loads(file_content)
