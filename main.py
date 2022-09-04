@@ -3,7 +3,7 @@ import os
 import random
 import time
 
-from dotenv import load_dotenv
+
 from google.cloud import dialogflow
 from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
@@ -111,12 +111,12 @@ def send_info(update, context, user_info):
 
 
 if __name__ == '__main__':
-    load_dotenv()
+
     # url = 'https://citatnica.ru/frazy/krasivye-frazy-dlya-devushek-350-fraz'
-    # google_application_credentials = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
-    # tg_token = os.environ['TG_API_TOKEN']
-    google_application_credentials = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-    tg_token = os.getenv('TG_API_TOKEN')
+    google_application_credentials = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
+    tg_token = os.environ['TG_API_TOKEN']
+    # google_application_credentials = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+    # tg_token = os.getenv('TG_API_TOKEN')
 
     with open(google_application_credentials, "r", encoding="UTF-8", ) as my_file:
         file_content = my_file.read()
