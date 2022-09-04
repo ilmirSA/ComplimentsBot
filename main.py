@@ -104,7 +104,7 @@ def get_random_smiles():
 
 
 def check_username(user_name):
-    if user_name == 'salekhov':
+    if user_name == 'ellkkaaa':
         return True
     else:
         return False
