@@ -82,7 +82,7 @@ def send_audio(update,context):
     send_info(update, context, update.effective_user)
     welcome_text = f'Ты не Элина! не общайся с ботом удали его!😡'
     context.bot.send_message(chat_id=update.message.chat_id, text=welcome_text)
-    time.sleep(2)
+    time.sleep(1)
     context.bot.send_audio(chat_id=update.message.chat_id, audio=open(selecct_audio, 'rb'))
 
 def detect_intent_texts(project_id, session_id, text, language_code):
@@ -103,7 +103,7 @@ def get_random_smiles():
 
 
 def check_username(user_name):
-    if user_name == 'ellkkaaa':
+    if user_name == 'salekhov':
         return True
     else:
         return False
