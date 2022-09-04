@@ -3,6 +3,7 @@ import os
 import random
 import time
 
+from dotenv import load_dotenv
 from google.cloud import dialogflow
 from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
@@ -11,62 +12,72 @@ from telegram.ext import Updater
 
 def answers_to_questions(update, context):
     language_code = "ru-RU"
+    user_name = update.effective_user['username']
     chat_id = update.message.chat_id
     text_message = update.message.text
     repeated_text = f'Такой пользователь написал еще раз {update.effective_user}'
     context.bot.send_message(chat_id='5563946468', text=repeated_text, )
-    if str(text_message).lower() in ['нет', 'хватит', 'ты уже надеол', 'нету', 'не надо', 'пока', 'не']:
-        text_from_dialogue_flow = detect_intent_texts(
-            project_id,
-            chat_id,
-            text_message,
-            language_code
-        )
-        farewell_text = f'{text_from_dialogue_flow}{get_random_smiles()}{get_random_smiles()}{get_random_smiles()}'
-        context.bot.send_message(chat_id=chat_id, text=farewell_text, )
+    if check_username(user_name):
+        if str(text_message).lower() in ['нет', 'хватит', 'ты уже надеол', 'нету', 'не надо', 'пока', 'не']:
+            text_from_dialogue_flow = detect_intent_texts(
+                project_id,
+                chat_id,
+                text_message,
+                language_code
+            )
+            farewell_text = f'{text_from_dialogue_flow}{get_random_smiles()}{get_random_smiles()}{get_random_smiles()}'
+            context.bot.send_message(chat_id=chat_id, text=farewell_text, )
+        else:
+            text_from_dialogue_flow = detect_intent_texts(
+                project_id,
+                chat_id,
+                text_message,
+                language_code
+            )
+            create_text = f'{text_from_dialogue_flow}{get_random_smiles()}{get_random_smiles()}{get_random_smiles()}'
+            repeat_text = 'Еще комплиментов зай?☺'
+            context.bot.send_message(chat_id=chat_id, text=create_text, )
+            time.sleep(2)
+            context.bot.send_message(chat_id=chat_id, text=repeat_text, )
     else:
-        text_from_dialogue_flow = detect_intent_texts(
-            project_id,
-            chat_id,
-            text_message,
-            language_code
-        )
-        create_text = f'{text_from_dialogue_flow}{get_random_smiles()}{get_random_smiles()}{get_random_smiles()}'
-        repeat_text = 'Еще комплиментов зай?☺'
-        context.bot.send_message(chat_id=chat_id, text=create_text, )
-        second_sleep = 3
-        time.sleep(second_sleep)
-        context.bot.send_message(chat_id=chat_id, text=repeat_text, )
+        welcome_text = f'Ты не Элина удали бот!😡'
+        context.bot.send_message(chat_id=update.message.chat_id, text=welcome_text)
 
 
 def start(update, context):
     user_name = update.effective_user['username']
-    if user_name == 'ellkkaaa':
+    if check_username(user_name):
+        text_one = 'Привет, зай этого бота я написал для тебя. 😊 '
+        text_two = 'После последней нашей встречи у меня  на душе остался осадок и из-за проявленной мною грубости и не красивых слов в твой адрес.🙁😞😔 '
+        text_three = 'В качестве извинений я написал этого бота который делает тебе комплименты за меня. Надеюсь тебе понравиться 😜😝😎'
+        text_four = 'Все комплименты написаны искренне и подобранны под тебя.☺😘'
+        text_wrong = 'Пожалуйста не говори и не показывай его не кому пусть это  будет нашем секретом🤫'
+        description_text = 'Боту отвечай Да/Нет 💬'
+        text_answer = 'Зай, сделать  комплимент?😊'
         context.bot.send_message(chat_id=update.message.chat_id,
-                                 text='Ооо привет подожди я кое-что должен тебе передать,уже загружаю!!! 😉 ')
-        context.bot.send_audio(chat_id=update.message.chat_id, audio=open('от Ильмира.mp3', 'rb'))
+                                 text=text_one)
         time.sleep(3)
         context.bot.send_message(chat_id=update.message.chat_id,
-                                 text='Пока ты слушаешь , Ильмир передает тебе пламенный привет !!! 😜')
-        time.sleep(5)
+                                 text=text_two)
+        time.sleep(3)
         context.bot.send_message(chat_id=update.message.chat_id,
-                                 text='Хочешь комплимент ? 😊')
+                                 text=text_three)
+        time.sleep(3)
+        context.bot.send_message(chat_id=update.message.chat_id,
+                                 text=text_four)
+        time.sleep(3)
+        context.bot.send_message(chat_id=update.message.chat_id,
+                                 text=text_wrong)
+        time.sleep(3)
+        context.bot.send_message(chat_id=update.message.chat_id,
+                                 text=description_text)
+        time.sleep(1)
+        context.bot.send_message(chat_id=update.message.chat_id,
+                                 text=text_answer)
     else:
         send_info(update, context, update.effective_user)
-        welcome_text = f'Когда ты  читаешь мои комплименты представляй, что я нахожусь рядом с тобой {get_random_smiles()}{get_random_smiles()}{get_random_smiles()}'
+        welcome_text = f'Ты не Элина! не общайся с ботом удали его!😡'
         context.bot.send_message(chat_id=update.message.chat_id, text=welcome_text)
-        second_sleep = 3
-        time.sleep(second_sleep)
-        text_from_dialogue_flow = detect_intent_texts(
-            project_id,
-            update.message.chat_id,
-            welcome_text,
-            'ru-RU',
-        )
-        text_message = f'{text_from_dialogue_flow}{get_random_smiles()}{get_random_smiles()}{get_random_smiles()}{get_random_smiles()}'
-        context.bot.send_message(chat_id=update.message.chat_id, text=text_message, )
-        time.sleep(second_sleep)
-        context.bot.send_message(chat_id=update.message.chat_id, text='Еще комплиментов зай?☺', )
 
 
 def detect_intent_texts(project_id, session_id, text, language_code):
@@ -86,6 +97,13 @@ def get_random_smiles():
     return a[index]
 
 
+def check_username(user_name):
+    if user_name == 'salekhov':
+        return True
+    else:
+        return False
+
+
 def send_info(update, context, user_info):
     text = f'Такой пользователь пишет в первый раз {user_info}'
     chat_id = '5563946468'
@@ -93,9 +111,12 @@ def send_info(update, context, user_info):
 
 
 if __name__ == '__main__':
+    load_dotenv()
     # url = 'https://citatnica.ru/frazy/krasivye-frazy-dlya-devushek-350-fraz'
-    google_application_credentials = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
-    tg_token = os.environ['TG_API_TOKEN']
+    # google_application_credentials = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
+    # tg_token = os.environ['TG_API_TOKEN']
+    google_application_credentials = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+    tg_token = os.getenv('TG_API_TOKEN')
 
     with open(google_application_credentials, "r", encoding="UTF-8", ) as my_file:
         file_content = my_file.read()
