@@ -56,7 +56,7 @@ def start(update, context):
         text_answer = 'Зай, сделать  комплимент?😊'
         context.bot.send_message(chat_id=update.message.chat_id,
                                  text=text_one)
-        time.sleep(3)
+        time.sleep(2)
         context.bot.send_message(chat_id=update.message.chat_id,
                                  text=text_two)
         time.sleep(5)
@@ -98,7 +98,7 @@ def get_random_smiles():
 
 
 def check_username(user_name):
-    if user_name == 'salekhov':
+    if user_name == 'ellkkaaa':
         return True
     else:
         return False
