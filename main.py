@@ -39,7 +39,7 @@ def answers_to_questions(update, context):
             time.sleep(2)
             context.bot.send_message(chat_id=chat_id, text=repeat_text, )
     else:
-        send_audio(update,context)
+        send_audio(update, context)
 
 
 def start(update, context):
@@ -73,17 +73,18 @@ def start(update, context):
         context.bot.send_message(chat_id=update.message.chat_id,
                                  text=text_answer)
     else:
-        send_audio(update,context)
+        send_audio(update, context)
 
 
-def send_audio(update,context):
+def send_audio(update, context):
     audio_list = ['1.mp3', '2.mp3', '3.mp3']
-    selecct_audio = random.choice(audio_list)
+    select_audio = random.choice(audio_list)
     send_info(update, context, update.effective_user)
     welcome_text = f'Ты не Элина! не общайся с ботом удали его!😡'
     context.bot.send_message(chat_id=update.message.chat_id, text=welcome_text)
     time.sleep(1)
-    context.bot.send_audio(chat_id=update.message.chat_id, audio=open(selecct_audio, 'rb'))
+    context.bot.send_audio(chat_id=update.message.chat_id, audio=open(select_audio, 'rb'))
+
 
 def detect_intent_texts(project_id, session_id, text, language_code):
     session_client = dialogflow.SessionsClient()
@@ -116,7 +117,6 @@ def send_info(update, context, user_info):
 
 
 if __name__ == '__main__':
-
     # url = 'https://citatnica.ru/frazy/krasivye-frazy-dlya-devushek-350-fraz'
     google_application_credentials = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
     tg_token = os.environ['TG_API_TOKEN']
