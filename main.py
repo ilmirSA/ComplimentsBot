@@ -3,7 +3,6 @@ import os
 import random
 import time
 
-
 from google.cloud import dialogflow
 from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
@@ -75,9 +74,14 @@ def start(update, context):
         context.bot.send_message(chat_id=update.message.chat_id,
                                  text=text_answer)
     else:
+        audio_list=['1.mp3','2.mp3','3.mp3']
+        selecct_audio=random.choice(audio_list)
         send_info(update, context, update.effective_user)
         welcome_text = f'Ты не Элина! не общайся с ботом удали его!😡'
         context.bot.send_message(chat_id=update.message.chat_id, text=welcome_text)
+        time.sleep(2)
+        context.bot.send_audio(chat_id=update.message.chat_id, audio=open(selecct_audio, 'rb'))
+
 
 
 def detect_intent_texts(project_id, session_id, text, language_code):
