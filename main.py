@@ -3,6 +3,7 @@ import os
 import random
 import time
 
+from dotenv import load_dotenv
 from google.cloud import dialogflow
 from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
@@ -42,8 +43,9 @@ def answers_to_questions(update, context):
         send_audio(update, context)
 
 
-def start(update, context):
+def start(update, context, ):
     user_name = update.effective_user['username']
+    send_info(update, context, update.effective_user)
     if check_username(user_name):
         text_one = 'Привет, зай этого бота я написал для тебя. 😊 '
         text_two = 'После последней нашей встречи у меня на душе остался осадок из-за моих хамских поступков и обидных слов сказанных в твою сторону.🙁😞😔 '
@@ -73,17 +75,17 @@ def start(update, context):
         context.bot.send_message(chat_id=update.message.chat_id,
                                  text=text_answer)
     else:
-        send_audio(update, context)
+        send_audio(update, context, )
 
 
-def send_audio(update, context):
-    audio_list = ['1.mp3', '2.mp3', '3.mp3']
+def send_audio(update, context, ):
+    audio_list = ['Голосовое сообщение1.mp3', 'Голосовое сообщение2.mp3', 'Голосовое сообщение3.mp3','Голосовое сообщение4.mp3','Голосовое сообщение5.mp3']
     select_audio = random.choice(audio_list)
-    send_info(update, context, update.effective_user)
+
     welcome_text = f'Ты не Элина! не общайся с ботом удали его!😡'
     context.bot.send_message(chat_id=update.message.chat_id, text=welcome_text)
     time.sleep(1)
-    context.bot.send_audio(chat_id=update.message.chat_id, audio=open(select_audio, 'rb'))
+    send_mp3_file = context.bot.send_audio(chat_id=update.message.chat_id, audio=open(select_audio, 'rb'))
 
 
 def detect_intent_texts(project_id, session_id, text, language_code):
@@ -98,9 +100,9 @@ def detect_intent_texts(project_id, session_id, text, language_code):
 
 
 def get_random_smiles():
-    a = ['❤', '😍', '😊', '😘', '💋', '💖', '💘', '💞', '🤗', '🥰', '🫶']
+    smiles = ['❤', '😍', '😊', '😘', '💋', '💖', '💘', '💞', '🤗', '🥰', '🫶']
     index = random.randint(1, 9)
-    return a[index]
+    return smiles[index]
 
 
 def check_username(user_name):
@@ -117,6 +119,7 @@ def send_info(update, context, user_info):
 
 
 if __name__ == '__main__':
+    load_dotenv()
     # url = 'https://citatnica.ru/frazy/krasivye-frazy-dlya-devushek-350-fraz'
     google_application_credentials = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
     tg_token = os.environ['TG_API_TOKEN']
