@@ -3,7 +3,6 @@ import os
 import random
 import time
 
-from dotenv import load_dotenv
 from google.cloud import dialogflow
 from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
@@ -79,7 +78,8 @@ def start(update, context, ):
 
 
 def send_audio(update, context, ):
-    audio_list = ['Голосовое сообщение1.mp3', 'Голосовое сообщение2.mp3', 'Голосовое сообщение3.mp3','Голосовое сообщение4.mp3','Голосовое сообщение5.mp3']
+    audio_list = ['Голосовое сообщение1.mp3', 'Голосовое сообщение2.mp3', 'Голосовое сообщение3.mp3',
+                  'Голосовое сообщение4.mp3', 'Голосовое сообщение5.mp3']
     select_audio = random.choice(audio_list)
 
     welcome_text = f'Ты не Элина! не общайся с ботом удали его!😡'
@@ -119,7 +119,6 @@ def send_info(update, context, user_info):
 
 
 if __name__ == '__main__':
-    load_dotenv()
     # url = 'https://citatnica.ru/frazy/krasivye-frazy-dlya-devushek-350-fraz'
     google_application_credentials = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
     tg_token = os.environ['TG_API_TOKEN']
