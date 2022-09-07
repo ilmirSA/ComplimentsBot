@@ -46,31 +46,8 @@ def start(update, context, ):
     user_name = update.effective_user['username']
     send_info(update, context, update.effective_user)
     if check_username(user_name):
-        text_one = 'Привет, зай этого бота я написал для тебя. 😊 '
-        text_two = 'После последней нашей встречи у меня на душе остался осадок из-за моих хамских поступков и обидных слов сказанных в твою сторону.🙁😞😔 '
-        text_three = 'В качестве извинений я написал этого бота который делает тебе комплименты за меня. Надеюсь тебе понравиться 😜😝😎'
-        text_four = 'Все комплименты написаны искренне и подобранны под тебя.☺😘'
-        text_wrong = 'Пожалуйста не говори и не показывай его не кому пусть это  будет нашем секретом🤫'
-        description_text = 'Боту отвечай Да/Нет 💬'
-        text_answer = 'Зай, сделать  комплимент?😊'
-        context.bot.send_message(chat_id=update.message.chat_id,
-                                 text=text_one)
-        time.sleep(2)
-        context.bot.send_message(chat_id=update.message.chat_id,
-                                 text=text_two)
+        text_answer = 'Привет зай, сделать  комплимент?😊'
         time.sleep(5)
-        context.bot.send_message(chat_id=update.message.chat_id,
-                                 text=text_three)
-        time.sleep(4)
-        context.bot.send_message(chat_id=update.message.chat_id,
-                                 text=text_four)
-        time.sleep(3)
-        context.bot.send_message(chat_id=update.message.chat_id,
-                                 text=text_wrong)
-        time.sleep(4)
-        context.bot.send_message(chat_id=update.message.chat_id,
-                                 text=description_text)
-        time.sleep(1)
         context.bot.send_message(chat_id=update.message.chat_id,
                                  text=text_answer)
     else:
