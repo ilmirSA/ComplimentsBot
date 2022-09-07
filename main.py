@@ -47,7 +47,12 @@ def start(update, context, ):
     send_info(update, context, update.effective_user)
     if check_username(user_name):
         text_answer = 'Привет зай, сделать  комплимент?😊'
-        time.sleep(5)
+        time.sleep(4)
+        context.bot.send_message(chat_id=update.message.chat_id,
+                                 text='Эти строчки песни я посвящаю тебе')
+        time.sleep(3)
+        context.bot.send_audio(chat_id=update.message.chat_id,audio=open('dama.mp3','rb'))
+        time.sleep(2)
         context.bot.send_message(chat_id=update.message.chat_id,
                                  text=text_answer)
     else:
@@ -83,7 +88,7 @@ def get_random_smiles():
 
 
 def check_username(user_name):
-    if user_name == 'ellkkaaa':
+    if user_name == 'salekhov':
         return True
     else:
         return False
