@@ -64,7 +64,7 @@ def send_audio(update, context, ):
                   'Голосовое сообщение4.mp3', 'Голосовое сообщение5.mp3']
     select_audio = random.choice(audio_list)
 
-    welcome_text = f'Ты не Элина! не общайся с ботом удали его!😡'
+    welcome_text = f'Ты не Екатерина! не общайся с ботом удали его!😡'
     context.bot.send_message(chat_id=update.message.chat_id, text=welcome_text)
     time.sleep(1)
     send_mp3_file = context.bot.send_audio(chat_id=update.message.chat_id, audio=open(select_audio, 'rb'))
