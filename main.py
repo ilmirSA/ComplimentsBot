@@ -46,10 +46,10 @@ def start(update, context, ):
     user_name = update.effective_user['username']
     send_info(update, context, update.effective_user)
     if check_username(user_name):
-        text_answer = 'Привет зай, сделать  комплимент?😊'
+        text_answer = 'Зай, сделать  комплимент?😊'
         time.sleep(4)
         context.bot.send_message(chat_id=update.message.chat_id,
-                                 text='Эти строки песни посвящены тебе 💖❤💋💞🥰')
+                                 text='Привет зай,эти строки песни посвящены тебе 💖❤💋💞🥰')
         time.sleep(1)
         context.bot.send_audio(chat_id=update.message.chat_id,audio=open('dama.mp3','rb'))
         time.sleep(5)
