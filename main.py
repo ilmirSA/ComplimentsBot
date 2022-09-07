@@ -47,7 +47,6 @@ def start(update, context, ):
     send_info(update, context, update.effective_user)
     if check_username(user_name):
         text_answer = 'Зай, сделать  комплимент?😊'
-        time.sleep(4)
         context.bot.send_message(chat_id=update.message.chat_id,
                                  text='Привет зай,эти строки песни посвящены тебе 💖❤💋💞🥰')
         time.sleep(1)
