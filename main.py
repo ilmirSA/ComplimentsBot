@@ -49,10 +49,10 @@ def start(update, context, ):
         text_answer = 'Привет зай, сделать  комплимент?😊'
         time.sleep(4)
         context.bot.send_message(chat_id=update.message.chat_id,
-                                 text='Эти строчки песни я посвящаю тебе')
-        time.sleep(3)
+                                 text='Эти строки песни посвящены тебе 💖❤💋💞🥰')
+        time.sleep(1)
         context.bot.send_audio(chat_id=update.message.chat_id,audio=open('dama.mp3','rb'))
-        time.sleep(2)
+        time.sleep(5)
         context.bot.send_message(chat_id=update.message.chat_id,
                                  text=text_answer)
     else:
